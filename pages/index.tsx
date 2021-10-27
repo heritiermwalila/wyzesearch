@@ -5,6 +5,7 @@ import Header from '../src/components/Global/Header'
 
 
 export default function Home() {
+
   return (
     <div className="h-screen flex items-center">
         <div className="container mx-auto">

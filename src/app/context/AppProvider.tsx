@@ -13,6 +13,7 @@ export default function AppProvider({ children }) {
   const [error, setError] = React.useState();
   const [categories, setCategories] = React.useState<ICategory[]>();
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
+  const [isInSearchMode, setIsInSearchMode] = React.useState(false)
 
 
   React.useEffect(() => {
@@ -35,9 +36,34 @@ export default function AppProvider({ children }) {
         setIsLoading(false)
       }
     } catch (error) {
+      setError(error?.message);
         setIsLoading(false)
     }
   }, [])
+
+
+  /**
+   * 
+   * @param query 
+   */
+  const onSearch = async (query: string) => {
+    try {
+      setIsInSearchMode(true)
+      const req = await General.search(query)
+
+      if(req.error){
+        setError(req.error)
+        setIsInSearchMode(false)
+      }else {
+        setIsInSearchMode(false)
+        return req.data
+      }
+
+    } catch (error) {
+      setError(error?.message)
+      setIsInSearchMode(false)
+    }
+  }
 
   /**
    * Application context memoization
@@ -50,12 +76,20 @@ export default function AppProvider({ children }) {
       /** Application error state */
       error,
 
+      /** Search mode state */
+      isInSearchMode,
+
       /** Application loading state */
       isLoading,
-      onGetCategories
+
+      /** Get categories */
+      onGetCategories,
+
+      /** Search anything  */
+      onSearch
      
     }),
-    [error, categories, isLoading]
+    [error, categories, isLoading, isInSearchMode]
   );
 
   return (

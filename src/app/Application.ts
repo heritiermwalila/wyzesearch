@@ -20,10 +20,21 @@ class Application {
        * @returns
        */
       request: async (path: string, opts?: Record<string, any>) => {
+        const reqObj = {
+          method: opts?.post ? "POST" : "GET",
+        };
+
+        if (opts?.post) {
+          Object.assign(reqObj, { body: JSON.stringify(opts?.data) });
+        }
+
+        console.log(reqObj);
+
         const request = await fetch(`${API_HOST}${path}`, {
           headers: {
             "Content-Type": "application/json",
           },
+          ...reqObj,
         });
 
         const { data, error, status } = await request.json();

@@ -8,16 +8,20 @@ import CategoryItem from "./CategoryItem";
 
 interface CategoryListProps {}
 export default function CategoryList({}: CategoryListProps) {
-  const {categories, isLoading} = useApp()
+  const {categories, isLoading, isInSearchMode} = useApp()
 
   if(isLoading){
     return <div className="flex justify-center items-center h-2/4 w-2/4 mx-auto my-5">
       <h4>loading categories...</h4>
     </div>
+  }else if(isInSearchMode){
+    return <div className="flex justify-center items-center h-2/4 w-2/4 mx-auto my-5">
+      <h4>Searching please wait...</h4>
+    </div>
   }
 
   return (
-    <div className="flex justify-center items-center h-2/4 w-2/4 mx-auto my-5">
+    <div className="flex justify-between items-center h-2/4 w-2/4 mx-auto my-5">
       {
         categories?.map(category => <CategoryItem {...{category}} key={category?.key} />)
       }

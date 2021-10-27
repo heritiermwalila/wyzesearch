@@ -24,7 +24,7 @@ export default function CategoryItem({category}: CategoryItemProps) {
             pathname: '/search',
             query: {q: category?.key}
         })}>
-          <div className="mr-2 bg-gray-300 py-5 text-center rounded-md">
+          <div className="mx-1 bg-gray-300 py-5 text-center rounded-md">
               <div className="flex justify-center items-center">
                   {IconJSX?.[category?.key]}
               </div>

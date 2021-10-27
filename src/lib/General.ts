@@ -11,6 +11,15 @@ class General extends Application {
       return await this.API.request<ICategory[]>("/categories");
     } catch (error) {}
   }
+
+  async search(query: string) {
+    try {
+      return await this.API.request<any>("/search", {
+        post: true,
+        data: { query },
+      });
+    } catch (error) {}
+  }
 }
 
 export default new General();

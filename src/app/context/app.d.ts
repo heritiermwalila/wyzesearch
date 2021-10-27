@@ -5,4 +5,6 @@ export interface IAppContext {
   error?: any;
   categories: ICategory[];
   isLoading?: boolean;
+  onSearch?: (query: string) => Promise<any>;
+  isInSearchMode?: boolean;
 }
