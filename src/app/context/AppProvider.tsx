@@ -13,57 +13,54 @@ export default function AppProvider({ children }) {
   const [error, setError] = React.useState();
   const [categories, setCategories] = React.useState<ICategory[]>();
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
-  const [isInSearchMode, setIsInSearchMode] = React.useState(false)
-
+  const [isInSearchMode, setIsInSearchMode] = React.useState(false);
 
   React.useEffect(() => {
-    onGetCategories()
-  }, [])
+    onGetCategories();
+  }, []);
 
   /** Get categories from the api */
   const onGetCategories = React.useCallback(async () => {
     try {
-      setIsLoading(true)
+      setIsLoading(true);
       const response = await General.getCategories();
       if (response?.error) {
         /**
          * TODO: log the error to the server for debuging and fix
          */
         setError(response.error);
-        setIsLoading(false)
+        setIsLoading(false);
       } else {
         setCategories(response.data);
-        setIsLoading(false)
+        setIsLoading(false);
       }
     } catch (error) {
       setError(error?.message);
-        setIsLoading(false)
+      setIsLoading(false);
     }
-  }, [])
-
+  }, []);
 
   /**
-   * 
-   * @param query 
+   *
+   * @param query
    */
-  const onSearch = async (query: string) => {
+  const onSearch = async (query: { key: string; value: any }) => {
     try {
-      setIsInSearchMode(true)
-      const req = await General.search(query)
+      setIsInSearchMode(true);
+      const req = await General.search(query);
 
-      if(req.error){
-        setError(req.error)
-        setIsInSearchMode(false)
-      }else {
-        setIsInSearchMode(false)
-        return req.data
+      if (req.error) {
+        setError(req.error);
+        setIsInSearchMode(false);
+      } else {
+        setIsInSearchMode(false);
+        return req.data;
       }
-
     } catch (error) {
-      setError(error?.message)
-      setIsInSearchMode(false)
+      setError(error?.message);
+      setIsInSearchMode(false);
     }
-  }
+  };
 
   /**
    * Application context memoization
@@ -86,8 +83,7 @@ export default function AppProvider({ children }) {
       onGetCategories,
 
       /** Search anything  */
-      onSearch
-     
+      onSearch,
     }),
     [error, categories, isLoading, isInSearchMode]
   );

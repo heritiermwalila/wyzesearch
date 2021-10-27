@@ -1,4 +1,5 @@
 import Application from "../app/Application";
+import { IArticle } from "./lib";
 
 class Article extends Application {
   /**
@@ -8,7 +9,10 @@ class Article extends Application {
    */
   async getLatestArticles(num: number = 10) {
     try {
-      return this.API.request("/articles", { type: "latest", number: num });
+      return this.API.request<IArticle[]>("/articles", {
+        type: "latest",
+        number: num,
+      });
     } catch (error) {}
   }
 
@@ -19,7 +23,7 @@ class Article extends Application {
    */
   async getWithHighestLikes(per_page: number = 20) {
     try {
-      return this.API.request("/articles/", {
+      return this.API.request<string[]>("/articles/", {
         type: "moreLikes",
         per_page,
       });

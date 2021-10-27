@@ -12,7 +12,7 @@ class General extends Application {
     } catch (error) {}
   }
 
-  async search(query: string) {
+  async search(query: { key: string; value: any }) {
     try {
       return await this.API.request<any>("/search", {
         post: true,
