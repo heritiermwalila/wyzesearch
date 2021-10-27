@@ -1,5 +1,3 @@
-import Head from 'next/head'
-import Image from 'next/image'
 import React from 'react'
 import CategoryList from '../src/components/Global/CategoryList'
 import SearchForm from '../src/components/Global/Forms/SearchForm'

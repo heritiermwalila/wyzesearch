@@ -4,7 +4,7 @@ import MostPopularBook from '../Book/MostPopularBook'
 import LatestMovieReview from '../Movie/LatestMovieReview'
 import LatestTopStories from '../Storie/LatestTopStories'
 
-export type SearchType = 'articles' | 'books' | 'movie reviews' | 'top stories'
+export type SearchType = 'articles' | 'books' | 'movies' | 'stories'
 
 interface SearchResultProps {
     type: SearchType
@@ -20,11 +20,11 @@ export default function SearchResult({type}: SearchResultProps) {
             return <MostPopularBook />
         }
 
-        case 'movie reviews': {
+        case 'movies': {
             return <LatestMovieReview />
         }
 
-        case 'top stories': {
+        case 'stories': {
             return <LatestTopStories />
         }
     
